@@ -8,11 +8,8 @@ plugins {
 }
 
 mixin {
-    config "mixins.${mod_id}.json"
-    add sourceSets.main, "mixins.${mod_id}.refmap.json"
-
-    debug.verbose = true
-    debug.export = true
+    add sourceSets.main, "pmmo_farmers_compat.refmap.json"
+    config "pmmo_farmers_compat.mixins.json"
 }
 
 version = mod_version
@@ -136,12 +133,6 @@ dependencies {
 
     implementation fg.deobf("curse.maven:pmmo-353935:${project_mmo_version}")
     implementation fg.deobf("curse.maven:farmers-delight-398521:${farmers_delight_version}")
-
-    //MIXIN EXTRAS
-    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:0.2.0-rc.5"))
-    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.2.0-rc.5")) {
-        jarJar.ranged(it, "[0.2.0-rc.5,)")
-    }
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
