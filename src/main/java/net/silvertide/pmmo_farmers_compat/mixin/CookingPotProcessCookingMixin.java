@@ -26,6 +26,8 @@ public abstract class CookingPotProcessCookingMixin {
     private void postEvent(ItemStack stack) {
         Level level = ((CookingPotBlockEntity)(Object)this).getLevel();
         BlockPos pos = ((CookingPotBlockEntity)(Object)this).getBlockPos();
-        EventUtil.postFurnaceBurnEvent(level, pos, stack);
+        for(int i = 0; i < stack.getCount(); i++) {
+            EventUtil.postFurnaceBurnEvent(level, pos, stack);
+        }
     }
 }
