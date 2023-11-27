@@ -17,7 +17,7 @@ public abstract class CookingPotProcessCookingMixin {
         return resultStack;
     }
 
-    @ModifyArg(method = "processCooking(Lvectorwing/farmersdelight/common/crafting/CookingPotRecipe;Lvectorwing/farmersdelight/common/block/entity/CookingPotBlockEntity;)Z", at = @At(value = "INVOKE", target = "net/minecraft/world/item/ItemStack.isSameItem (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z"), index = 1, remap = false)
+    @ModifyArg(method = "processCooking(Lvectorwing/farmersdelight/common/crafting/CookingPotRecipe;Lvectorwing/farmersdelight/common/block/entity/CookingPotBlockEntity;)Z", at = @At(value = "INVOKE", target = "net/minecraft/world/item/ItemStack.isSameItem (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z"), index = 1, remap = true)
     public ItemStack modifyIsSameItemArg(ItemStack resultStack) {
         postEvent(resultStack);
         return resultStack;
