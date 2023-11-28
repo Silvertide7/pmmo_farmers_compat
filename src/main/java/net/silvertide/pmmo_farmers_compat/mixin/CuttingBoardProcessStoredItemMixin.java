@@ -16,7 +16,7 @@ public abstract class CuttingBoardProcessStoredItemMixin {
         Level level = ((CuttingBoardBlockEntity)(Object)this).getLevel();
         BlockPos pos = ((CuttingBoardBlockEntity)(Object)this).getBlockPos();
         for(int i = 0; i < resultStack.getCount(); i++) {
-            EventUtil.postFurnaceBurnEvent(level, pos, resultStack);
+            EventUtil.postPlayerCraftEvent(level, pos, resultStack);
         }
         return resultStack;
     }
