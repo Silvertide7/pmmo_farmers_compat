@@ -8,6 +8,7 @@
     "CookingPotProcessCookingMixin",
     "CuttingBoardProcessStoredItemMixin",
     "SkilletCookAndOutputItemsMixin",
+    "SkilletItemCookAndOutputItemsMixin",
     "StoveCookAndOutputItemsMixin"
   ],
   "server": [],

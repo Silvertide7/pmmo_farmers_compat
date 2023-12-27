@@ -17,7 +17,7 @@ import java.util.UUID;
 public class EventUtil {
 
     public static void postPlayerCraftEvent(Level level, BlockPos pos, ItemStack stack) {
-        if(level.isClientSide) return;
+        if(level == null || level.isClientSide) return;
         IChunkData cap = level.getChunkAt(pos).getCapability(ChunkDataProvider.CHUNK_CAP).orElseGet(ChunkDataHandler::new);
         UUID pid = cap.checkPos(pos);
         if (pid == null) return;
