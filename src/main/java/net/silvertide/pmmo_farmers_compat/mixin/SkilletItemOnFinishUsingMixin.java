@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Mixin(SkilletItem.class)
-public abstract class SkilletItemCookAndOutputItemsMixin {
+public abstract class SkilletItemOnFinishUsingMixin {
     @ModifyArg(method = "lambda$finishUsingItem$1(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/crafting/CampfireCookingRecipe;)V", at = @At(value = "INVOKE", target = "net/minecraft/world/entity/player/Inventory.add (Lnet/minecraft/world/item/ItemStack;)Z"),  remap = false)
     private static ItemStack modifyInventoryAddArgs(ItemStack resultStack, @Local(argsOnly = true) Level level, @Local(argsOnly = true) Player player, @Local(argsOnly = true) ItemStack itemStack, @Local(argsOnly = true) CampfireCookingRecipe campfireRecipe) {
         if(player instanceof ServerPlayer serverPlayer) {
