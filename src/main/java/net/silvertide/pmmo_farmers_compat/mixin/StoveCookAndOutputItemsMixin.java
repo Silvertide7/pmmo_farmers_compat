@@ -10,9 +10,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
+import vectorwing.farmersdelight.common.block.entity.SyncedBlockEntity;
 
-// cookAndOutputItems()V
-// "vectorwing/farmersdelight/common/utility/ItemUtils.spawnItemEntity (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;DDDDDD)V"
 @Mixin(StoveBlockEntity.class)
 public abstract class StoveCookAndOutputItemsMixin {
     @ModifyArg(
