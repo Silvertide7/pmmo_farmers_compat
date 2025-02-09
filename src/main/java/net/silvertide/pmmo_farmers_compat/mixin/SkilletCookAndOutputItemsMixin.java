@@ -11,11 +11,16 @@ import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
 
 @Mixin(SkilletBlockEntity.class)
 public abstract class SkilletCookAndOutputItemsMixin {
-//    @ModifyArg(method = "cookAndOutputItems(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;)V", at = @At(value = "INVOKE", target = "vectorwing/farmersdelight/common/utility/ItemUtils.spawnItemEntity (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;DDDDDD)V"), remap = false)
-//    public ItemStack modifySpawnItemEntityArg(ItemStack resultStack) {
-//        Level level = ((SkilletBlockEntity)(Object)this).getLevel();
-//        BlockPos pos = ((SkilletBlockEntity)(Object)this).getBlockPos();
-//        EventUtil.postFurnaceBurnEvent(level, pos, resultStack);
-//        return resultStack;
-//    }
+    @ModifyArg(method = "cookAndOutputItems(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;)V",
+            at = @At(value = "INVOKE", target = "vectorwing/farmersdelight/common/utility/ItemUtils.spawnItemEntity (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;DDDDDD)V"),
+            remap = false)
+    public ItemStack modifySpawnItemEntityArg(ItemStack resultStack) {
+        SkilletBlockEntity blockEntity = ((SkilletBlockEntity)(Object)this);
+        if(blockEntity != null) {
+            Level level = blockEntity.getLevel();
+            BlockPos pos = blockEntity.getBlockPos();
+            EventUtil.postFurnaceBurnEvent(level, pos, resultStack);
+        }
+        return resultStack;
+    }
 }
