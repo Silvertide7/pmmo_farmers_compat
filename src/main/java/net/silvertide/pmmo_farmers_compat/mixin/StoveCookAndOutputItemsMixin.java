@@ -3,14 +3,11 @@ package net.silvertide.pmmo_farmers_compat.mixin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
 import net.silvertide.pmmo_farmers_compat.util.EventUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
-import vectorwing.farmersdelight.common.block.entity.SyncedBlockEntity;
 
 @Mixin(StoveBlockEntity.class)
 public abstract class StoveCookAndOutputItemsMixin {
