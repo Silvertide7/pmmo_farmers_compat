@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import vectorwing.farmersdelight.common.block.entity.SkilletBlockEntity;
 
 @Mixin(SkilletBlockEntity.class)
-public abstract class SkilletCookAndOutputItemsMixin {
+public abstract class SkilletBlockCookAndOutputItemsMixin {
     @ModifyArg(method = "cookAndOutputItems(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;)V",
             at = @At(value = "INVOKE", target = "vectorwing/farmersdelight/common/utility/ItemUtils.spawnItemEntity (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;DDDDDD)V"),
             remap = false)
