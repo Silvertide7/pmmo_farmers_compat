@@ -2,7 +2,6 @@
   "required": true,
   "minVersion": "0.7",
   "package": "net.silvertide.pmmo_farmers_compat.mixin",
-  "refmap": "pmmo_farmers_compat.refmap.json",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "CookingPotProcessCookingMixin",
