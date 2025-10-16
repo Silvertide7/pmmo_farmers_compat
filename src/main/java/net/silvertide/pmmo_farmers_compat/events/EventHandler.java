@@ -1,0 +1,54 @@
+package net.silvertide.pmmo_farmers_compat.events;
+
+import com.mojang.authlib.GameProfile;
+import harmonised.pmmo.api.APIUtils;
+import harmonised.pmmo.api.enums.EventType;
+import harmonised.pmmo.core.Core;
+import harmonised.pmmo.features.party.PartyUtils;
+import harmonised.pmmo.storage.DataAttachmentTypes;
+import harmonised.pmmo.util.Reference;
+import harmonised.pmmo.util.TagUtils;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ClientInformation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.silvertide.pmmo_farmers_compat.PMMOFarmersCompat;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+
+@EventBusSubscriber(modid=PMMOFarmersCompat.MOD_ID, bus= EventBusSubscriber.Bus.GAME)
+public class EventHandler {
+
+    @SubscribeEvent(priority=EventPriority.LOWEST)
+    public static void onCraft(FarmersCookEvent event) {
+        //Checkers to exit early for non-applicable conditions
+        if (event.getLevel().isClientSide) return;
+        UUID pid = event.getLevel().getChunkAt(event.getPos())
+                .getData(DataAttachmentTypes.PLACED_MAP.get())
+                .getOrDefault(event.getPos(), Reference.NIL);
+        if (pid == null) return;
+        ServerPlayer player = event.getLevel().getServer().getPlayerList().getPlayer(pid);
+        if (player == null) {
+            Optional<GameProfile> playerProfile = event.getLevel().getServer().getProfileCache().get(pid);
+            if (playerProfile.isEmpty())
+                return;
+            player = new ServerPlayer(event.getLevel().getServer(), (ServerLevel) event.getLevel(), playerProfile.get(), ClientInformation.createDefault());
+        }
+
+        //core logic
+        Core core = Core.get(event.getLevel());
+        CompoundTag eventHook = core.getEventTriggerRegistry().executeEventListeners(EventType.SMELTED, event, new CompoundTag());
+        eventHook.putString(APIUtils.STACK, TagUtils.stackTag(event.getOutput(), event.getLevel()).getAsString());
+        eventHook = TagUtils.mergeTags(eventHook, core.getPerkRegistry().executePerk(EventType.SMELTED, player, eventHook));
+
+        Map<String, Long> xpAwards = core.getExperienceAwards(EventType.SMELTED, event.getOutput(), player, eventHook);
+        List<ServerPlayer> partyMembersInRange = PartyUtils.getPartyMembersInRange(player);
+        core.awardXP(partyMembersInRange, xpAwards);
+    }
+}

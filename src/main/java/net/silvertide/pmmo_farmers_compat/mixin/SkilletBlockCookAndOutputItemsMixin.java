@@ -3,7 +3,8 @@ package net.silvertide.pmmo_farmers_compat.mixin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.silvertide.pmmo_farmers_compat.util.EventUtil;
+import net.neoforged.neoforge.common.NeoForge;
+import net.silvertide.pmmo_farmers_compat.events.FarmersCookEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -19,7 +20,8 @@ public abstract class SkilletBlockCookAndOutputItemsMixin {
         if(blockEntity != null) {
             Level level = blockEntity.getLevel();
             BlockPos pos = blockEntity.getBlockPos();
-            EventUtil.postFurnaceBurnEvent(level, pos, resultStack);
+            NeoForge.EVENT_BUS.post(new FarmersCookEvent(resultStack, level, pos));
+
         }
         return resultStack;
     }
