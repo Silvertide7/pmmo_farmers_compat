@@ -8,7 +8,10 @@
     "CookingPotProcessCookingMixin",
     "CuttingBoardProcessStoredItemMixin",
     "SkilletCookAndOutputItemsMixin",
-    "StoveCookAndOutputItemsMixin"
+    "SkilletItemOnFinishUsingMixin",
+    "StoveCookAndOutputItemsMixin",
+    "VanillaDelightStoveCookAndOutputItemsMixin",
+    "NetherDelightStoveCookAndOutputItemsMixin"
   ],
   "server": [],
   "client": [],

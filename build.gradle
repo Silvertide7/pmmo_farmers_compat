@@ -131,8 +131,17 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
-    implementation fg.deobf("curse.maven:pmmo-353935:${project_mmo_version}")
-    implementation fg.deobf("curse.maven:farmers-delight-398521:${farmers_delight_version}")
+    compileOnly fg.deobf("curse.maven:pmmo-353935:${project_mmo_version}")
+    runtimeOnly fg.deobf("curse.maven:pmmo-353935:${project_mmo_version}")
+
+    compileOnly fg.deobf("curse.maven:farmers-delight-398521:${farmers_delight_version}")
+    runtimeOnly fg.deobf("curse.maven:farmers-delight-398521:${farmers_delight_version}")
+
+    compileOnly fg.deobf("curse.maven:nethers-delight-496394:${nethers_delight_version}")
+    runtimeOnly fg.deobf("curse.maven:nethers-delight-496394:${nethers_delight_version}")
+
+    compileOnly fg.deobf("curse.maven:vanilla-delight-1209304:${vanillas_delight_version}")
+    runtimeOnly fg.deobf("curse.maven:vanilla-delight-1209304:${vanillas_delight_version}")
 
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.2"))
     implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.3.2")) {

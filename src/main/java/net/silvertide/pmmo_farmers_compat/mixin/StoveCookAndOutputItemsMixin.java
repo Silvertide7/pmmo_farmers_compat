@@ -13,8 +13,9 @@ import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
 public abstract class StoveCookAndOutputItemsMixin {
     @ModifyArg(method = "cookAndOutputItems()V", at = @At(value = "INVOKE", target = "vectorwing/farmersdelight/common/utility/ItemUtils.spawnItemEntity (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;DDDDDD)V"), remap = false)
     public ItemStack modifySpawnItemEntityArg(ItemStack resultStack) {
-        Level level = ((StoveBlockEntity)(Object)this).getLevel();
-        BlockPos pos = ((StoveBlockEntity)(Object)this).getBlockPos();
+        StoveBlockEntity stoveBlockEntity = (StoveBlockEntity)(Object)this;
+        Level level = stoveBlockEntity.getLevel();
+        BlockPos pos = stoveBlockEntity.getBlockPos();
         EventUtil.postFurnaceBurnEvent(level, pos, resultStack);
         return resultStack;
     }
