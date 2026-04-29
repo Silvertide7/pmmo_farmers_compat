@@ -18,11 +18,10 @@ public abstract class VanillaDelightStoveCookAndOutputItemsMixin {
             ), remap = false)
     public ItemStack modifySpawnItemEntityArg(ItemStack resultStack) {
         CommonStoveBlockEntity stoveBlockEntity = ((CommonStoveBlockEntity)(Object)this);
-        if(stoveBlockEntity != null) {
-            Level level = stoveBlockEntity.getLevel();
-            BlockPos pos = stoveBlockEntity.getBlockPos();
-            EventUtil.postFurnaceBurnEvent(level, pos, resultStack);
-        }
+        Level level = stoveBlockEntity.getLevel();
+        if (level == null || level.isClientSide) return resultStack;
+        BlockPos pos = stoveBlockEntity.getBlockPos();
+        EventUtil.postFurnaceBurnEvent(level, pos, resultStack);
         return resultStack;
     }
 }

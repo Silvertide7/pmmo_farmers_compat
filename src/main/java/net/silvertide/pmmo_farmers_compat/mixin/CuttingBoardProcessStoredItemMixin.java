@@ -14,6 +14,7 @@ public abstract class CuttingBoardProcessStoredItemMixin {
     @ModifyArg(method = "lambda$processStoredItemUsingTool$2(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/player/Player;Lvectorwing/farmersdelight/common/crafting/CuttingBoardRecipe;)V", at = @At(value = "INVOKE", target = "vectorwing/farmersdelight/common/utility/ItemUtils.spawnItemEntity(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;DDDDDD)V"), remap = false)
     public ItemStack modifySpawnItemEntityArg(ItemStack resultStack){
         Level level = ((CuttingBoardBlockEntity)(Object)this).getLevel();
+        if (level == null || level.isClientSide) return resultStack;
         BlockPos pos = ((CuttingBoardBlockEntity)(Object)this).getBlockPos();
         for(int i = 0; i < resultStack.getCount(); i++) {
             EventUtil.postPlayerCraftEvent(level, pos, resultStack);

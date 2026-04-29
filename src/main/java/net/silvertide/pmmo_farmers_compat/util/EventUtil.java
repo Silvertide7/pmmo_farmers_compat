@@ -28,6 +28,7 @@ public class EventUtil {
     }
 
     public static void postFurnaceBurnEvent(Level level, BlockPos pos, ItemStack stack) {
+        if (level == null || level.isClientSide) return;
         MinecraftForge.EVENT_BUS.post(new FurnaceBurnEvent(stack, level, pos));
     }
 }

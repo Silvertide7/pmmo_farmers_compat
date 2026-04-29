@@ -31,6 +31,7 @@ public abstract class NetherDelightStoveCookAndOutputItemsMixin {
             CallbackInfo ci,
             boolean didChange, int i, ItemStack stoveStack, int var10002, Container inventoryWrapper, ItemStack result
     ) {
+        if (level == null || level.isClientSide) return;
         EventUtil.postFurnaceBurnEvent(level, stove.getBlockPos(), result);
     }
 }
