@@ -1,3 +1,6 @@
+## 1.2.2
+- Removed custom compat for My Nethers Delight and Vanilla's Delight, because it's not needed anymore. All farmers delight compat mods that add a stove should extend farmers delights AbstractStoveBlockEntity now, and this will work automatically. My Nethers Delight does this so that works fine now, Vanillas Delight has yet to update.
+
 ## 1.2.1
 - Added back in compat with My Nethers Delight and Vanilla's Delight
 
