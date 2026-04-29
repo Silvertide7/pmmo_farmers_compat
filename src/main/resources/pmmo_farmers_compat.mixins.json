@@ -8,9 +8,7 @@
     "CuttingBoardProcessStoredItemMixin",
     "SkilletBlockCookAndOutputItemsMixin",
     "SkilletItemFinishUsingItemMixin",
-    "StoveCookAndOutputItemsMixin",
-    "NetherStoveCookAndOutputItemsMixin",
-    "VanillaStoveCookAndOutputItemsMixin"
+    "StoveCookAndOutputItemsMixin"
   ],
   "server": [],
   "client": [],
