@@ -11,9 +11,9 @@ public class FarmersCookEvent extends Event {
     BlockPos pos;
 
     /**
-     * @param output the item being smelted.  NOT the output item
-     * @param level the world/level the smelting is occurring in
-     * @param pos the position of the block smelting the item
+     * @param output the cooking result (matches PMMO's SMELTED event semantics)
+     * @param level the world/level the cook is occurring in
+     * @param pos the position of the block doing the cooking
      */
     public FarmersCookEvent(ItemStack output, Level level, BlockPos pos) {
         this.output = output;

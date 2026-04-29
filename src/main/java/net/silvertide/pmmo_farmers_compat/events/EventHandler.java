@@ -16,13 +16,14 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.silvertide.pmmo_farmers_compat.PMMOFarmersCompat;
+import net.silvertide.pmmo_farmers_compat.config.Config;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-@EventBusSubscriber(modid=PMMOFarmersCompat.MOD_ID, bus= EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid=PMMOFarmersCompat.MOD_ID)
 public class EventHandler {
 
     @SubscribeEvent(priority=EventPriority.LOWEST)
@@ -42,12 +43,13 @@ public class EventHandler {
         }
 
         //core logic
+        EventType eventType = Config.XP_EVENT_TYPE.get();
         Core core = Core.get(event.getLevel());
-        CompoundTag eventHook = core.getEventTriggerRegistry().executeEventListeners(EventType.SMELTED, event, new CompoundTag());
+        CompoundTag eventHook = core.getEventTriggerRegistry().executeEventListeners(eventType, event, new CompoundTag());
         eventHook.putString(APIUtils.STACK, TagUtils.stackTag(event.getOutput(), event.getLevel()).getAsString());
-        eventHook = TagUtils.mergeTags(eventHook, core.getPerkRegistry().executePerk(EventType.SMELTED, player, eventHook));
+        eventHook = TagUtils.mergeTags(eventHook, core.getPerkRegistry().executePerk(eventType, player, eventHook));
 
-        Map<String, Long> xpAwards = core.getExperienceAwards(EventType.SMELTED, event.getOutput(), player, eventHook);
+        Map<String, Long> xpAwards = core.getExperienceAwards(eventType, event.getOutput(), player, eventHook);
         List<ServerPlayer> partyMembersInRange = PartyUtils.getPartyMembersInRange(player);
         core.awardXP(partyMembersInRange, xpAwards);
     }
