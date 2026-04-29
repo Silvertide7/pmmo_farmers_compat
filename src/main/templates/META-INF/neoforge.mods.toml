@@ -80,16 +80,16 @@ versionRange="[1.3,)"
 ordering="NONE"
 side="BOTH"
 
-#[[dependencies.${mod_id}]]
-#modId="mynethersdelight"
-#type="optional"
-#versionRange="[1.8,)"
-#ordering="NONE"
-#side="BOTH"
+[[dependencies.${mod_id}]]
+modId="mynethersdelight"
+type="optional"
+versionRange="[1.8,)"
+ordering="NONE"
+side="BOTH"
 
-#[[dependencies.${mod_id}]]
-#modId="vanilladelight"
-#type="optional"
-#versionRange="[1.0.4,)"
-#ordering="NONE"
-#side="BOTH"
+[[dependencies.${mod_id}]]
+modId="vanilladelight"
+type="optional"
+versionRange="[1.0.4,)"
+ordering="NONE"
+side="BOTH"

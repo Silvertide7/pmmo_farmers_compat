@@ -1,3 +1,6 @@
+## 1.2.1
+- Added back in compat with My Nethers Delight and Vanilla's Delight
+
 ## 1.2.0
 - Updated for Farmer's Delight 1.3.0 (now requires 1.3+ and NeoForge 21.1.219+).
 - Added a server config (`config/pmmo_farmers_compat-server.toml`) with `xp_event_type` — choose `SMELT` (XP based on the input ingredient) or `SMELTED` (XP based on the cooked result). Default is `SMELTED`, which preserves 1.1.x behavior.
