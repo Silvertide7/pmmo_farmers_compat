@@ -30,13 +30,10 @@ public abstract class CuttingBoardProcessStoredItemMixin {
     )
     public ItemStack modifySpawnItemEntityArg(ItemStack stack, @Local(argsOnly = true) Player player) {
         CuttingBoardBlockEntity cuttingBoardBlockEntity = ((CuttingBoardBlockEntity)(Object)this);
-        if(cuttingBoardBlockEntity != null) {
-            Level level = cuttingBoardBlockEntity.getLevel();
-            for(int i = 0; i < stack.getCount(); i++) {
-                if(level != null) {
-                    NeoForge.EVENT_BUS.post(new PlayerEvent.ItemCraftedEvent(player, stack, new SimpleContainer(0)));
-                }
-            }
+        Level level = cuttingBoardBlockEntity.getLevel();
+        if (level == null || level.isClientSide) return stack;
+        for(int i = 0; i < stack.getCount(); i++) {
+            NeoForge.EVENT_BUS.post(new PlayerEvent.ItemCraftedEvent(player, stack, new SimpleContainer(0)));
         }
         return stack;
     }
