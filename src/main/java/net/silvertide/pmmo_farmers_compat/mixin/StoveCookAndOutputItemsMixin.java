@@ -8,9 +8,9 @@ import net.silvertide.pmmo_farmers_compat.events.FarmersCookEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import vectorwing.farmersdelight.common.block.entity.StoveBlockEntity;
+import vectorwing.farmersdelight.common.block.entity.AbstractStoveBlockEntity;
 
-@Mixin(StoveBlockEntity.class)
+@Mixin(AbstractStoveBlockEntity.class)
 public abstract class StoveCookAndOutputItemsMixin {
     @ModifyArg(
             method = "cookAndOutputItems()V",
@@ -18,12 +18,11 @@ public abstract class StoveCookAndOutputItemsMixin {
                     target = "vectorwing/farmersdelight/common/utility/ItemUtils.spawnItemEntity (Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;DDDDDD)V"
             ), remap = false)
     public ItemStack modifySpawnItemEntityArg(ItemStack resultStack) {
-        StoveBlockEntity stoveBlockEntity = ((StoveBlockEntity)(Object)this);
-        if(stoveBlockEntity != null) {
-            Level level = stoveBlockEntity.getLevel();
-            BlockPos pos = stoveBlockEntity.getBlockPos();
-            NeoForge.EVENT_BUS.post(new FarmersCookEvent(resultStack, level, pos));
-        }
+        AbstractStoveBlockEntity stoveBlockEntity = ((AbstractStoveBlockEntity)(Object)this);
+        Level level = stoveBlockEntity.getLevel();
+        if (level == null || level.isClientSide) return resultStack;
+        BlockPos pos = stoveBlockEntity.getBlockPos();
+        NeoForge.EVENT_BUS.post(new FarmersCookEvent(resultStack, level, pos));
         return resultStack;
     }
 }

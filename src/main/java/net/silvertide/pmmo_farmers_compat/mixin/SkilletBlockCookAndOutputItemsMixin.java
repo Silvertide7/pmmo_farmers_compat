@@ -17,12 +17,10 @@ public abstract class SkilletBlockCookAndOutputItemsMixin {
             remap = false)
     public ItemStack modifySpawnItemEntityArg(ItemStack resultStack) {
         SkilletBlockEntity blockEntity = ((SkilletBlockEntity)(Object)this);
-        if(blockEntity != null) {
-            Level level = blockEntity.getLevel();
-            BlockPos pos = blockEntity.getBlockPos();
-            NeoForge.EVENT_BUS.post(new FarmersCookEvent(resultStack, level, pos));
-
-        }
+        Level level = blockEntity.getLevel();
+        if (level == null || level.isClientSide) return resultStack;
+        BlockPos pos = blockEntity.getBlockPos();
+        NeoForge.EVENT_BUS.post(new FarmersCookEvent(resultStack, level, pos));
         return resultStack;
     }
 }
