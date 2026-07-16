@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.silvertide.pmmo_farmers_compat.config.Config;
 
 import java.util.UUID;
 
@@ -23,12 +24,16 @@ public class EventUtil {
         if (pid == null) return;
 
         ServerPlayer player = level.getServer().getPlayerList().getPlayer(pid);
-        if (player != null)
+        if (player != null) {
             MinecraftForge.EVENT_BUS.post(new PlayerEvent.ItemCraftedEvent(player, stack, new SimpleContainer(0)));
+        }
     }
 
     public static void postFurnaceBurnEvent(Level level, BlockPos pos, ItemStack stack) {
         if (level == null || level.isClientSide) return;
-        MinecraftForge.EVENT_BUS.post(new FurnaceBurnEvent(stack, level, pos));
+        boolean asInput = Config.XP_MODE.get() == Config.XpMode.SMELT;
+        ItemStack input = asInput ? stack : ItemStack.EMPTY;
+        ItemStack output = asInput ? ItemStack.EMPTY : stack;
+        MinecraftForge.EVENT_BUS.post(new FurnaceBurnEvent(input, output, level, pos));
     }
 }

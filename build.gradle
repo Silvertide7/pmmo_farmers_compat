@@ -5,6 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.spongepowered.mixin' version '0.7.+'
+    id 'me.modmuss50.mod-publish-plugin' version '0.8.3'
 }
 
 mixin {
@@ -186,21 +187,41 @@ tasks.named('jar', Jar).configure {
     finalizedBy 'reobfJar'
 }
 
-// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing:
-// tasks.named('publish').configure {
-//     dependsOn 'reobfJar'
-// }
+publishMods {
+    file = jar.archiveFile
+    modLoaders.add("forge")
+    changelog = new File("$project.rootDir/CHANGELOG.md").getText('UTF-8')
+    version = "${minecraft_version}-${mod_version}"
+    type = STABLE
+    displayName = "pmmo_farmers_compat-${minecraft_version}-${mod_version}"
+    dryRun = System.getenv("PUBLISH_DRY_RUN") == "true"
 
-// Example configuration to allow publishing using the maven-publish plugin
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            artifact jar
-        }
+    curseforge {
+        projectId = "${curseforge_project}"
+        projectSlug = "project-mmo-farmers-delight-compat"
+        accessToken = providers.environmentVariable("CF_TOKEN")
+
+        minecraftVersions.add(minecraft_version)
+        javaVersions.add(JavaVersion.VERSION_17)
+
+        clientRequired = false
+        serverRequired = true
     }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/mcmodsrepo"
+
+    modrinth {
+        projectId = "kKiocPqN"
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        minecraftVersions.add(minecraft_version)
+    }
+
+    discord {
+        webhookUrl = providers.environmentVariable("DISCORD_WEBHOOK_URL")
+        dryRunWebhookUrl = providers.environmentVariable("DISCORD_WEBHOOK_TEST_URL")
+        username = "PMMO Farmers Compat"
+        style {
+            look = "MODERN"
+            color = "curseforge"
+            link = "EMBED"
         }
     }
 }
