@@ -10,8 +10,9 @@
     "SkilletCookAndOutputItemsMixin",
     "SkilletItemOnFinishUsingMixin",
     "StoveCookAndOutputItemsMixin",
-    "VanillaDelightStoveCookAndOutputItemsMixin",
-    "NetherDelightStoveCookAndOutputItemsMixin"
+    "NetherDelightStoveCookAndOutputItemsMixin",
+    "MyNetherDelightBlazierCookTickMixin",
+    "VanillaDelightCuttingBoardProcessStoredItemMixin"
   ],
   "server": [],
   "client": [],

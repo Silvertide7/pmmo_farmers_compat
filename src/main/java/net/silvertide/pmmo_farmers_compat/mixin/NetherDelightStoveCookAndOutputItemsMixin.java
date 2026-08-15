@@ -21,10 +21,16 @@ public abstract class NetherDelightStoveCookAndOutputItemsMixin {
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/Containers;dropItemStack(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/item/ItemStack;)V",
-                    shift = At.Shift.BEFORE
+                    shift = At.Shift.BEFORE,
+                    // the target is a Minecraft method, so it must be remapped even though the
+                    // enclosing method is not
+                    remap = true
             ),
             locals = LocalCapture.CAPTURE_FAILHARD,
-            remap = false
+            remap = false,
+            // Nether's Delight is optional and CAPTURE_FAILHARD pins its exact local layout, so a
+            // future recompile should cost stove XP rather than crash the game.
+            require = 0
     )
     private static void beforeDropItemStack(
             Level level, BlockPos pos, BlockState state, AbstractStoveBlockEntity<?, ?> stove,
